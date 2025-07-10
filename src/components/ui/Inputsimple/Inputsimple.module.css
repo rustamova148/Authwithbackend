@@ -8,10 +8,10 @@
     padding: 0.6rem 0.5rem;
     font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 0.4rem;
     outline: none;
     background-color: white;
-    margin-bottom: 5px;
+    margin-bottom: 0.3rem;
 }
 .label {
   position: absolute;
