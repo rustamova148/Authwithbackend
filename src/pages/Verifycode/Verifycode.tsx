@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Verifycode.module.css";
 import Inputwithicon from "../../components/ui/Inputwithicon/Inputwithicon";
 import Button from "../../components/ui/Button/Button";
@@ -13,7 +14,9 @@ const Verifycode = () => {
       <div className={styles.verifycode_form_container}>
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
         <form className={styles.form}>
+          <Link to="/login" className={styles.backto_login}>
           <p>Back to login</p>
+          </Link>
           <div className={styles.verify_text}>
             <p className={styles.head}>Verify Code</p>
             <p className={styles.text}>

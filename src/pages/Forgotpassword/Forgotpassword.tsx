@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Forgotpassword.module.css";
 import Inputsimple from "../../components/ui/Inputsimple/Inputsimple";
 import Button from "../../components/ui/Button/Button";
@@ -16,7 +17,9 @@ const Forgotpassword = () => {
       <div className={styles.forgotpassword_form_container}>
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
         <form className={styles.form}>
+          <Link to="/login" className={styles.backto_login}>
           <p>Back to login</p>
+          </Link>
           <div>
             <p className={styles.head}>Forgot your password?</p>
             <p className={styles.text}>

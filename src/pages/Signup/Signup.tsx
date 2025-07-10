@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Signup.module.css";
 import Button from "../../components/ui/Button/Button";
 import Inputsimple from "../../components/ui/Inputsimple/Inputsimple";
@@ -94,7 +95,9 @@ const Signup = () => {
           <div className={styles.linktologin_box}>
             <span className={styles.linktologin_text}>
               Already have an account?
+              <Link to="/login" className={styles.login_link}>
               <span className={styles.linktologin}> Login</span>
+              </Link>
             </span>
           </div>
           <div className={styles.recs}>

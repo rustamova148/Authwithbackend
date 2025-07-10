@@ -1,5 +1,5 @@
 .logo{
-    margin-left: 300px;
+    margin-left: 18.6rem;
 }
 .form{
     width: 30rem;
@@ -81,7 +81,7 @@
     padding: 0.25rem 9.13rem;
 }
 .swiper_container{
-    width: 450px;
+    width: 28.1rem;
 }
 :global(.swiper-pagination-bullet) {
     background-color: rgb(255, 255, 255) !important;
@@ -89,7 +89,10 @@
 }
 :global(.swiper-pagination-bullet-active){
     background-color: #515DEF !important;
-    width: 32px !important;
-    height: 10px !important;
-    border-radius: 5px !important;
+    width: 2rem !important;
+    height: 0.6rem !important;
+    border-radius: 0.3rem !important;
+}
+.login_link{
+    text-decoration: none;
 }

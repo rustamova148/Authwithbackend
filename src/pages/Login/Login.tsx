@@ -1,5 +1,6 @@
 import styles from "./Login.module.css";
 import { useState } from "react";
+import { Link } from "react-router-dom"
 import loginswiperpic from "../../assets/Loginswipperpic.png"
 import Inputsimple from "../../components/ui/Inputsimple/Inputsimple";
 import Inputwithicon from "../../components/ui/Inputwithicon/Inputwithicon";
@@ -47,13 +48,21 @@ const Login = () => {
               <input id="remember" type="checkbox" />
               <label htmlFor="remember">Remember me</label>
             </div>
-            <span className={styles.forgotpass_text}>Forgot Password</span>
+            <Link to="/forgotpassword" className={styles.forgot_link}>
+            <span className={styles.forgotpass_text}>
+              Forgot Password
+            </span>
+            </Link>
           </div>
           <Button>Login</Button>
           <div className={styles.linktosignup_box}>
             <span className={styles.linktosignup_text}>
               Don’t have an account?
-              <span className={styles.linktosignup}> Sign up</span>
+              <Link to="/signup" className={styles.signup_link}>
+              <span className={styles.linktosignup}> 
+                Sign up
+              </span>
+              </Link>
             </span>
           </div>
           <div className={styles.recs}>
