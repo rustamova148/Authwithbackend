@@ -1,6 +1,20 @@
+.logo{
+    margin-left: -30px;
+}
+.login_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 9.13rem;
+}
+.login_form_container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
 .form{
     width: 30rem;
-    margin-top: -20px;
+    margin-top: -1.25rem;
 }
 .rectangle{
     width: 11rem;
@@ -11,7 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 1.6rem;
 }
 .recs span{
     color:  rgb(158, 158, 158);
@@ -20,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 1.6rem;
 }
 .loginwithother div{
     width: 9.4rem;
@@ -35,16 +49,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 25px;
+    margin-top: 1.7rem;
 }
 .remember{
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 0.25rem;
 }
 .head{
     font-weight: 600;
-    font-size: 30px;
+    font-size: 1.8rem;
 }
 .text{
     font-weight: 400;
@@ -68,4 +82,17 @@
 .forgotpass_text{
     color: rgb(243, 97, 97);
     cursor: pointer;
+}
+.swiper_container{
+    width: 450px;
+}
+:global(.swiper-pagination-bullet) {
+    background-color: rgb(255, 255, 255) !important;
+    opacity: 1 !important;
+}
+:global(.swiper-pagination-bullet-active){
+    background-color: #515DEF !important;
+    width: 32px !important;
+    height: 10px !important;
+    border-radius: 5px !important;
 }

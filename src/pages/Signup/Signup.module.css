@@ -1,3 +1,6 @@
+.logo{
+    margin-left: 300px;
+}
 .form{
     width: 30rem;
     margin-top: -1.4rem;
@@ -69,4 +72,24 @@
     color: rgb(243, 97, 97);
     cursor: pointer;
     margin-left: 0.25rem;
+}
+.signup_container{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.25rem 9.13rem;
+}
+.swiper_container{
+    width: 450px;
+}
+:global(.swiper-pagination-bullet) {
+    background-color: rgb(255, 255, 255) !important;
+    opacity: 1 !important;
+}
+:global(.swiper-pagination-bullet-active){
+    background-color: #515DEF !important;
+    width: 32px !important;
+    height: 10px !important;
+    border-radius: 5px !important;
 }
