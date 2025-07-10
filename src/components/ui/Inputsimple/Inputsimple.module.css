@@ -1,0 +1,33 @@
+.inputGroup{
+    position: relative;
+    margin-top: 1.5rem;
+}
+.input{
+    width: 29rem;
+    border-radius: 0.25rem;
+    padding: 0.6rem 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    background-color: white;
+    margin-bottom: 5px;
+}
+.label {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.6rem;
+  background-color: white;
+  padding: 0 0.25rem;
+  color: #666;
+  transition: 0.2s ease;
+  pointer-events: none;
+}
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label,
+.input:valid + .label {
+  top: -0.6rem;
+  font-size: 0.8rem;
+  color: #666666;
+}

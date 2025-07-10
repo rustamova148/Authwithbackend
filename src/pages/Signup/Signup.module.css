@@ -1,0 +1,72 @@
+.form{
+    width: 30rem;
+    margin-top: -23px;
+}
+.rectangle{
+    width: 11rem;
+    height: 0.05rem;
+    background-color: rgb(207, 207, 207);
+}
+.recs{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.recs span{
+    color:  rgb(158, 158, 158);
+}
+.loginwithother{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.loginwithother div{
+    width: 9.4rem;
+    height: 2.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #515DEF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inputs{
+    display: flex;
+    justify-content: space-between;
+    margin-top: -15px;
+}
+.inputs input{
+    width: 13.2rem;
+}
+.head{
+    font-weight: 600;
+    font-size: 30px;
+}
+.text{
+    font-weight: 400;
+    color: #5e5e5e;
+    margin-top: -10px;
+}
+.agree{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 18px;
+}
+.linktologin_box{
+    width: 100%;
+    margin-top: 10px;
+}
+.linktologin_text{
+    width: 15rem;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+.linktologin,
+.agree_red{
+    color: rgb(243, 97, 97);
+    cursor: pointer;
+    margin-left: 4px;
+}

@@ -1,0 +1,29 @@
+.form{
+    width: 30rem;
+    margin-top: -20px;
+    margin-top: 30px;
+}
+.verify_text{
+    margin-bottom: 30px;
+}
+.head{
+    font-weight: 600;
+    font-size: 30px;
+}
+.text{
+    font-weight: 400;
+    color: #5e5e5e;
+    margin-top: -10px;
+}
+.linktoresend_box{
+    width: 100%;
+    margin-top: 20px;
+}
+.linktoresend_text{
+    width: 13rem;
+    margin-top: 15px;
+}
+.linktoresend{
+    color: rgb(243, 97, 97);
+    cursor: pointer;
+}
