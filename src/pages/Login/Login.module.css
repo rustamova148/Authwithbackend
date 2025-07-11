@@ -27,7 +27,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1.6rem;
+    margin-top: 0.3rem;
 }
 .recs span{
     color:  rgb(158, 158, 158);
@@ -36,7 +36,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1.6rem;
+    margin-top: 0.7rem;
 }
 .loginwithother div{
     width: 9.4rem;
@@ -72,10 +72,12 @@
     margin-top: 0.6rem;
 }
 .linktosignup_text{
-    width: 13rem;
+    width: 17rem;
     display: block;
     margin: 0 auto;
     margin-top: 0.9rem;
+    font-size: 15px;
+    margin-left: 130px;
 }
 .linktosignup{
     color: rgb(243, 97, 97);

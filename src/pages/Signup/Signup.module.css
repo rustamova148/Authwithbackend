@@ -4,7 +4,7 @@
 }
 .form{
     width: 30.4rem;
-    margin-top: -20px;
+    margin-top: -40px;
 }
 .rectangle{
     width: 11rem;
@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0.9rem;
+    margin-top: 0.3rem;
 }
 .recs span{
     color:  rgb(158, 158, 158);
@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0.9rem;
+    margin-top: 0.7rem;
 }
 .loginwithother div{
     width: 9.4rem;
@@ -38,7 +38,7 @@
 .inputs{
     display: flex;
     justify-content: space-between;
-    margin-top: -0.9rem;
+    margin-top: -0.8rem;
 }
 .inputs input{
     width: 13.2rem;
@@ -59,17 +59,20 @@
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    margin-top: 1.1rem;
+    margin-top: 0.6rem;
+    font-size: 13px;
 }
 .linktologin_box{
     width: 100%;
-    margin-top: 0.6rem;
+    margin-top: 0.4em;
 }
 .linktologin_text{
-    width: 15rem;
+    width: 18rem;
     display: block;
     margin: 0 auto;
-    margin-top: 0.9rem;
+    margin-top: 0.5rem;
+    font-size: 15px;
+    margin-left: 120px;
 }
 .linktologin,
 .agree_red{
