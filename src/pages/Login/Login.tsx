@@ -8,17 +8,46 @@ import Button from "../../components/ui/Button/Button";
 import { FacebookIcon, GoogleIcon, AppleIcon } from "../../components/ui/Icons";
 import ImageSwiper from "../../components/ui/ImageSwiper/ImageSwiper";
 import logo from "../../assets/Logo (2).png";
+import type { LoginData } from "../../types/formDataTypes";
+import { loginUser } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const images = [loginswiperpic, loginswiperpic, loginswiperpic];
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<LoginData>({
+    email: "",
+    password: "",
+  })
   
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }))
+  }
+ 
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try{
+   const result = await loginUser(formData);
+   alert("Ugurlu login");
+   console.log(result);
+   navigate("/profile");
+   localStorage.setItem("accessToken", result.accessToken);
+   localStorage.setItem("refreshToken", result.refreshToken);
+   localStorage.setItem("refreshTokenExpiredAt", result.refreshTokenExpiredAt);
+  }catch(error){
+   console.error("Xeta bas verdi", error);
+  }
+  }
+
   return (
     <div className={styles.login_container}>
       <div className={styles.login_form_container}>
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div>
             <p className={styles.head}>Login</p>
             <p className={styles.text}>
@@ -27,17 +56,19 @@ const Login = () => {
           </div>
           <Inputsimple
             id="email"
+            name="email"
             label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             required
             type="email"
           />
           <Inputwithicon
             id="password"
+            name="password"
             label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             required
             type="password"
           />

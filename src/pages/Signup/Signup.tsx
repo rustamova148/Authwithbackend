@@ -8,21 +8,46 @@ import logo from "../../assets/Logo (2).png";
 import ImageSwiper from "../../components/ui/ImageSwiper/ImageSwiper";
 import signupswiperpic from "../../assets/Signupswiperpic.png";
 import { AppleIcon, FacebookIcon, GoogleIcon } from "../../components/ui/Icons";
+import type { RegisterData } from "../../types/formDataTypes";
+import { registerUser } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const images = [signupswiperpic, signupswiperpic, signupswiperpic];
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
+  const [formData, setFormData] = useState<RegisterData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try{
+   const result = await registerUser(formData);
+   console.log("Qeydiyyat ugurlu oldu", result);
+   navigate("/login");
+  }catch(error){
+   console.error("Xeta bas verdi", error);
+  }
+  }
 
   return (
     <div className={styles.signup_container}>
       <div className={styles.signup_form_container}>
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div>
             <p className={styles.head}>Sign up</p>
             <p className={styles.text}>
@@ -32,54 +57,60 @@ const Signup = () => {
           <div className={styles.inputs}>
             <Inputsimple
               id="firstname"
+              name="firstName"
               label="First name"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
+              value={formData.firstName}
+              onChange={handleChange}
               required
-              type="firstname"
+              type="text"
             />
             <Inputsimple
               id="lastname"
+              name="lastName"
               label="Last name"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
+              value={formData.lastName}
+              onChange={handleChange}
               required
-              type="lastname"
+              type="text"
             />
           </div>
           <div className={styles.inputs}>
             <Inputsimple
               id="email"
+              name="email"
               label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
               required
               type="email"
             />
             <Inputsimple
               id="number"
+              name="phoneNumber"
               label="Phone number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={formData.phoneNumber}
+              onChange={handleChange}
               required
-              type="number"
+              type="tel"
             />
           </div>
           <Inputwithicon
             id="password"
+            name="password"
             label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             required
             type="password"
           />
           <Inputwithicon
             id="confirmpassword"
+            name="confirmPassword"
             label="Confirm Password"
-            value={confirmpassword}
-            onChange={(e) => setConfirmpassword(e.target.value)}
+            value={formData.confirmPassword}
+            onChange={handleChange}
             required
-            type="confirmpassword"
+            type="password"
           />
           <div className={styles.agree}>
             <input id="remember" type="checkbox" />

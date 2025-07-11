@@ -4,6 +4,7 @@ import Signup from "../pages/Signup/Signup";
 import Forgotpassword from "../pages/Forgotpassword/Forgotpassword";
 import Verifycode from "../pages/Verifycode/Verifycode";
 import Setnewpassword from "../pages/Setnewpassword/Setnewpassword";
+import Profile from "../pages/Profile/Profile";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         path: "/setnewpassword",
         element: <Setnewpassword />
     },
+    {
+        path: "/profile",
+        element: <Profile />
+    }
 ])
 
 export default router;
