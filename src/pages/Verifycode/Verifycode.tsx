@@ -5,6 +5,7 @@ import Inputwithicon from "../../components/ui/Inputwithicon/Inputwithicon";
 import Button from "../../components/ui/Button/Button";
 import logo from "../../assets/Logo (2).png";
 import verifycodepic from "../../assets/Verifycodepic.png";
+import { ArrowIcon } from "../../components/ui/Icons";
 
 const Verifycode = () => {
   const [code, setCode] = useState("");
@@ -15,7 +16,10 @@ const Verifycode = () => {
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
         <form className={styles.form}>
           <Link to="/login" className={styles.backto_login}>
+          <div>
+          <ArrowIcon />
           <p>Back to login</p>
+          </div>
           </Link>
           <div className={styles.verify_text}>
             <p className={styles.head}>Verify Code</p>

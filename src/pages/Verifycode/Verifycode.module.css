@@ -13,7 +13,7 @@
     margin-top: -8.7rem;
 }
 .form{
-    width: 30rem;
+    width: 30.4rem;
     margin-top: -1.25rem;
     margin-top: 1.9rem;
 }
@@ -44,4 +44,8 @@
 .backto_login{
     text-decoration: none;
     color: black;
+}
+.backto_login div{
+    display: flex;
+    align-items: center;
 }

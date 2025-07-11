@@ -8,6 +8,7 @@ import facebook from "../../assets/facebook.png";
 import google from "../../assets/google.png";
 import apple from "../../assets/apple.png";
 import forgotpasswordpic from "../../assets/Forgotpasswordpic.png";
+import { ArrowIcon } from "../../components/ui/Icons";
 
 const Forgotpassword = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,10 @@ const Forgotpassword = () => {
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
         <form className={styles.form}>
           <Link to="/login" className={styles.backto_login}>
+          <div>
+          <ArrowIcon />
           <p>Back to login</p>
+          </div>
           </Link>
           <div>
             <p className={styles.head}>Forgot your password?</p>

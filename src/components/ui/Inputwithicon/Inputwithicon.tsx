@@ -1,6 +1,7 @@
 import styles from "./Inputwithicon.module.css";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react"; 
+import Eye from "../../ui/Icons/Eye";
+import EyeOff from "../../ui/Icons/EyeOff";
 
 type Props = {
     id: string;
@@ -22,6 +23,7 @@ const Inputwithicon = ({
 }:Props) => {
 
     const [showPassword, setShowPassword] = useState(false);
+    
     return(
         <div className={styles.inputGroup}>
           <input 

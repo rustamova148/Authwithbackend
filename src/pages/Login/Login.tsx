@@ -5,9 +5,9 @@ import loginswiperpic from "../../assets/Loginswipperpic.png"
 import Inputsimple from "../../components/ui/Inputsimple/Inputsimple";
 import Inputwithicon from "../../components/ui/Inputwithicon/Inputwithicon";
 import Button from "../../components/ui/Button/Button";
-import facebook from "../../../src/assets/facebook.png";
-import google from "../../../src/assets/google.png";
-import apple from "../../../src/assets/apple.png";
+import FacebookIcon from "../../components/ui/Icons/FacebookIcon";
+import GoogleIcon from "../../components/ui/Icons/GoogleIcon";
+import AppleIcon from "../../components/ui/Icons/AppleIcon";
 import ImageSwiper from "../../components/ui/ImageSwiper/ImageSwiper";
 import logo from "../../assets/Logo (2).png";
 
@@ -72,13 +72,13 @@ const Login = () => {
           </div>
           <div className={styles.loginwithother}>
             <div>
-              <img src={facebook} alt="facebook" />
+              <FacebookIcon />
             </div>
             <div>
-              <img src={google} alt="google" />
+              <GoogleIcon />
             </div>
             <div>
-              <img src={apple} alt="apple" />
+              <AppleIcon />
             </div>
           </div>
         </form>
