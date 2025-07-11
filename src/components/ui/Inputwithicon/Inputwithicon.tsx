@@ -2,16 +2,7 @@ import styles from "./Inputwithicon.module.css";
 import { useState } from "react";
 import Eye from "../../ui/Icons/Eye";
 import EyeOff from "../../ui/Icons/EyeOff";
-
-type Props = {
-    id: string;
-    label: string;
-    type: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    required?: boolean;
-    name?: string;
-}
+import type { InputWithIconProps } from "../../../types/propsTypes";
 
 const Inputwithicon = ({
     id,
@@ -20,10 +11,10 @@ const Inputwithicon = ({
     onChange,
     required = false,
     name
-}:Props) => {
+}:InputWithIconProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
-    
+
     return(
         <div className={styles.inputGroup}>
           <input 

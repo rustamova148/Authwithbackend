@@ -1,12 +1,9 @@
+import type { ImageSwiperProps } from "../../../types/propsTypes";
 import { Swiper as SwiperReact, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-
-type ImageSwiperProps = {
-  images: string[];
-};
 
 const ImageSwiper = ({ images }: ImageSwiperProps) => {
   return (

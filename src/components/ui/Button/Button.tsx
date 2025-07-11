@@ -1,12 +1,7 @@
-import type { ReactNode } from "react"
 import styles from "./Button.module.css"
+import type { ButtonProps } from "../../../types/propsTypes"
 
-type Props = {
-    children: ReactNode;
-    onClick?: () => void;
-}
-
-const Button = ({children, onClick}: Props) => {
+const Button = ({children, onClick}: ButtonProps) => {
     return(
         <button type="submit" onClick={onClick} className={styles.btn}>
             {children}

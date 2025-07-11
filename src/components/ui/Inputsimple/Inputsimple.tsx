@@ -1,14 +1,5 @@
 import styles from "./Inputsimple.module.css";
-
-type Props = {
-    id: string;
-    label: string;
-    type: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    required?: boolean;
-    name?: string;
-}
+import type { InputSimpleProps } from "../../../types/propsTypes";
 
 const Inputsimple = ({
     id,
@@ -18,7 +9,7 @@ const Inputsimple = ({
     onChange,
     required = false,
     name
-}:Props) => {
+}:InputSimpleProps) => {
     return(
         <div className={styles.inputGroup}>
           <input 
