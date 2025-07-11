@@ -4,11 +4,8 @@ import styles from "./Forgotpassword.module.css";
 import Inputsimple from "../../components/ui/Inputsimple/Inputsimple";
 import Button from "../../components/ui/Button/Button";
 import logo from "../../assets/Logo (2).png";
-import facebook from "../../assets/facebook.png";
-import google from "../../assets/google.png";
-import apple from "../../assets/apple.png";
 import forgotpasswordpic from "../../assets/Forgotpasswordpic.png";
-import { ArrowIcon } from "../../components/ui/Icons";
+import { AppleIcon, ArrowIcon, FacebookIcon, GoogleIcon } from "../../components/ui/Icons";
 
 const Forgotpassword = () => {
   const [email, setEmail] = useState("");
@@ -47,13 +44,13 @@ const Forgotpassword = () => {
           </div>
           <div className={styles.loginwithother}>
             <div>
-              <img src={facebook} alt="facebook" />
+              <FacebookIcon />
             </div>
             <div>
-              <img src={google} alt="google" />
+              <GoogleIcon />
             </div>
             <div>
-              <img src={apple} alt="apple" />
+              <AppleIcon />
             </div>
           </div>
         </form>

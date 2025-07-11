@@ -5,9 +5,7 @@ import loginswiperpic from "../../assets/Loginswipperpic.png"
 import Inputsimple from "../../components/ui/Inputsimple/Inputsimple";
 import Inputwithicon from "../../components/ui/Inputwithicon/Inputwithicon";
 import Button from "../../components/ui/Button/Button";
-import FacebookIcon from "../../components/ui/Icons/FacebookIcon";
-import GoogleIcon from "../../components/ui/Icons/GoogleIcon";
-import AppleIcon from "../../components/ui/Icons/AppleIcon";
+import { FacebookIcon, GoogleIcon, AppleIcon } from "../../components/ui/Icons";
 import ImageSwiper from "../../components/ui/ImageSwiper/ImageSwiper";
 import logo from "../../assets/Logo (2).png";
 
