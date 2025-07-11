@@ -37,3 +37,22 @@ export const resetPassword = async (data: SetNewPasswordData) => {
     const response = await api.post("/api/Auth/ResetPassword", data);
     return response.data;
 }
+
+export const refreshAccessToken = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  if (!refreshToken) throw new Error("Refresh token tapılmadı");
+
+  const response = await api.post("/api/Auth/Refresh", {
+    refreshToken: refreshToken,
+  });
+
+  const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+  localStorage.setItem("accessToken", accessToken);
+  if (newRefreshToken) {
+    localStorage.setItem("refreshToken", newRefreshToken);
+  }
+
+  return accessToken;
+};
