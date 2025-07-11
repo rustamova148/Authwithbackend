@@ -6,15 +6,40 @@ import Button from "../../components/ui/Button/Button";
 import logo from "../../assets/Logo (2).png";
 import forgotpasswordpic from "../../assets/Forgotpasswordpic.png";
 import { AppleIcon, ArrowIcon, FacebookIcon, GoogleIcon } from "../../components/ui/Icons";
+import { sendOtpCode } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Forgotpassword = () => {
-  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: ""
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }))
+  }
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try{
+  await sendOtpCode(formData);
+  alert("Emaili yoxla");
+  navigate("/verifycode");
+  localStorage.setItem("email_for_reset", formData.email);
+  }catch(error){
+  console.error('Xeta bas verdi', error);
+  }
+  }
 
   return (
     <div className={styles.forgotpassword_container}>
       <div className={styles.forgotpassword_form_container}>
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <Link to="/login" className={styles.backto_login}>
           <div>
           <ArrowIcon />
@@ -31,10 +56,11 @@ const Forgotpassword = () => {
           <Inputsimple
             id="email"
             label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             required
             type="email"
+            name="email"
           />
           <Button>Submit</Button>
           <div className={styles.recs}>

@@ -1,6 +1,7 @@
 import api from "./api"
-import type { RegisterData } from "../types/formDataTypes"
-import type { LoginData } from "../types/formDataTypes"
+import type 
+{ RegisterData, LoginData, ForgotPasswordData, VerifyCodeData, SetNewPasswordData } 
+from "../types/formDataTypes";
 
 export const registerUser = async (data: RegisterData) => {
     const response = await api.post("/api/auth/Register", data);
@@ -21,3 +22,18 @@ const token = localStorage.getItem("accessToken");
     })
     return response.data;
 } 
+
+export const sendOtpCode = async (data: ForgotPasswordData) => {
+    const response = await api.post("/api/Auth/SendOtpCode", data);
+    return response.data;
+}
+
+export const verifyOtpCode = async (data: VerifyCodeData) => {
+    const response = await api.post("/api/Auth/VerifyOtpCode", data);
+    return response.data;
+}
+
+export const resetPassword = async (data: SetNewPasswordData) => {
+    const response = await api.post("/api/Auth/ResetPassword", data);
+    return response.data;
+}
