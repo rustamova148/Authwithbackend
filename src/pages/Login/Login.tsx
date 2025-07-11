@@ -1,5 +1,6 @@
 import styles from "./Login.module.css";
 import { useState } from "react";
+import { AxiosError } from "axios";
 import { Link } from "react-router-dom"
 import loginswiperpic from "../../assets/Loginswipperpic.png"
 import Inputsimple from "../../components/ui/Inputsimple/Inputsimple";
@@ -11,10 +12,14 @@ import logo from "../../assets/Logo (2).png";
 import type { LoginData } from "../../types/formDataTypes";
 import { loginUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import type {ValidationErrorResponseLogin} from "../../types/validationErrorTypes";
 
 const Login = () => {
   const navigate = useNavigate();
   const images = [loginswiperpic, loginswiperpic, loginswiperpic];
+  const [ emailError, setEmailError ] = useState("");
+  const [ passwordError, setPasswordError ] = useState("");
+
   const [formData, setFormData] = useState<LoginData>({
     email: "",
     password: "",
@@ -38,8 +43,19 @@ const Login = () => {
    localStorage.setItem("accessToken", result.accessToken);
    localStorage.setItem("refreshToken", result.refreshToken);
    localStorage.setItem("refreshTokenExpiredAt", result.refreshTokenExpiredAt);
-  }catch(error){
-   console.error("Xeta bas verdi", error);
+  }catch(error: unknown){
+   const err = error as AxiosError<ValidationErrorResponseLogin>;
+   if(err.response && err.response.status === 400){
+    const errors = err.response.data;
+    if(errors.Email){
+    setEmailError(errors.Email[0]);
+    }
+    if(errors.Password){
+    setPasswordError(errors.Password[0]);
+    }
+   }else{
+    console.error("Basqa bir xeta", err);
+   }
   }
   }
 
@@ -54,24 +70,30 @@ const Login = () => {
               Login to access your travelwise account
             </p>
           </div>
+          <div>
           <Inputsimple
             id="email"
             name="email"
             label="Email"
             value={formData.email}
             onChange={handleChange}
-            required
             type="email"
+            error={emailError}
           />
+          {emailError && <p className={styles.email_error}>{emailError}</p>}
+          </div>
+          <div>
           <Inputwithicon
             id="password"
             name="password"
             label="Password"
             value={formData.password}
             onChange={handleChange}
-            required
             type="password"
+            error={passwordError}
           />
+          {passwordError && <p className={styles.password_error}>{passwordError}</p>}
+          </div>
           <div className={styles.rememberandforgot}>
             <div className={styles.remember}>
               <input id="remember" type="checkbox" />

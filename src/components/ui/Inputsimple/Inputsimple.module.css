@@ -31,3 +31,9 @@
   font-size: 0.8rem;
   color: #666666;
 }
+.inputError{
+  border: 1px solid red !important;
+}
+.labelError{
+  color: red !important;
+}

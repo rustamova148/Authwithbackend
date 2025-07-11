@@ -1,5 +1,7 @@
 .logo{
     margin-left: -1.9rem;
+    margin-top: -0.9375rem;
+    margin-bottom: 1.875rem;
 }
 .login_container{
     display: flex;
@@ -14,7 +16,7 @@
 }
 .form{
     width: 30.4rem;
-    margin-top: -1.25rem;
+    margin-top: -3.125rem;
 }
 .rectangle{
     width: 11rem;
@@ -102,4 +104,14 @@
 }
 .signup_link{
     margin-left: 0.4rem;
+}
+.email_error{
+    color: red;
+    font-size: 0.8125rem;
+    margin-top: 0.125rem;
+}
+.password_error{
+    color: red;
+    font-size: 0.8125rem;
+    margin-top: 0.25rem;
 }

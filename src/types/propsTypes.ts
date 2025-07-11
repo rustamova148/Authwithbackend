@@ -17,6 +17,7 @@ export type InputSimpleProps = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
     name?: string;
+    error?: string; 
 }
 
 export type InputWithIconProps = {
@@ -27,4 +28,5 @@ export type InputWithIconProps = {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
     name?: string;
+    error?: string;
 }

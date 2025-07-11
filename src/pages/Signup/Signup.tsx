@@ -11,10 +11,18 @@ import { AppleIcon, FacebookIcon, GoogleIcon } from "../../components/ui/Icons";
 import type { RegisterData } from "../../types/formDataTypes";
 import { registerUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import type {ValidationErrorResponseRegister} from "../../types/validationErrorTypes"
 
 const Signup = () => {
   const navigate = useNavigate();
   const images = [signupswiperpic, signupswiperpic, signupswiperpic];
+  const [ firstNameError, setFirstNameError ] = useState("");
+  const [ lastNameError, setLastNameError ] = useState("");
+  const [ emailError, setEmailError ] = useState("");
+  const [ passwordError, setPasswordError ] = useState("");
+  const [ phoneNumberError, setPhoneNumberError ] = useState("");
+
   const [formData, setFormData] = useState<RegisterData>({
     firstName: "",
     lastName: "",
@@ -38,8 +46,29 @@ const Signup = () => {
    const result = await registerUser(formData);
    console.log("Qeydiyyat ugurlu oldu", result);
    navigate("/login");
-  }catch(error){
+  }catch(error: unknown){
    console.error("Xeta bas verdi", error);
+   const err = error as AxiosError<ValidationErrorResponseRegister>;
+   if(err.response && err.response.status === 400){
+    const errors = err.response.data;
+    if(errors.FirstName){
+    setFirstNameError(errors.FirstName[0]);
+    }
+    if(errors.LastName){
+    setLastNameError(errors.LastName[0]);
+    }
+    if(errors.Email){
+    setEmailError(errors.Email[0]);
+    }
+    if(errors.PhoneNumber){
+    setPhoneNumberError(errors.PhoneNumber[0]);
+    }
+    if(errors.Password){
+    setPasswordError(errors.Password[0]);
+    }
+   }else{
+    console.error("Basqa bir xeta", err);
+   }
   }
   }
 
@@ -55,6 +84,7 @@ const Signup = () => {
             </p>
           </div>
           <div className={styles.inputs}>
+            <div>
             <Inputsimple
               id="firstname"
               name="firstName"
@@ -63,18 +93,25 @@ const Signup = () => {
               onChange={handleChange}
               required
               type="text"
+              error={firstNameError}
             />
+            {firstNameError && <p className={styles.firstname_error}>{firstNameError}</p>}
+            </div>
+            <div className={styles.lastname_inp_cont}>
             <Inputsimple
               id="lastname"
               name="lastName"
               label="Last name"
               value={formData.lastName}
               onChange={handleChange}
-              required
               type="text"
+              error={lastNameError}
             />
+            {lastNameError && <p className={styles.lastname_error}>{lastNameError}</p>}
+            </div>
           </div>
           <div className={styles.inputs}>
+            <div>
             <Inputsimple
               id="email"
               name="email"
@@ -83,7 +120,11 @@ const Signup = () => {
               onChange={handleChange}
               required
               type="email"
+              error={emailError}
             />
+            {emailError && <p className={styles.email_error}>{emailError}</p>}
+            </div>
+            <div>
             <Inputsimple
               id="number"
               name="phoneNumber"
@@ -92,7 +133,10 @@ const Signup = () => {
               onChange={handleChange}
               required
               type="tel"
+              error={phoneNumberError}
             />
+            {phoneNumberError && <p className={styles.phone_number_error}>{phoneNumberError}</p>}
+            </div>
           </div>
           <Inputwithicon
             id="password"
@@ -102,7 +146,9 @@ const Signup = () => {
             onChange={handleChange}
             required
             type="password"
+            error={passwordError}
           />
+          {passwordError && <p className={styles.password_error}>{passwordError}</p>}
           <Inputwithicon
             id="confirmpassword"
             name="confirmPassword"
@@ -111,7 +157,9 @@ const Signup = () => {
             onChange={handleChange}
             required
             type="password"
+            error={passwordError}
           />
+          {passwordError && <p className={styles.confirm_password_error}>{passwordError}</p>}
           <div className={styles.agree}>
             <input id="remember" type="checkbox" />
             <label htmlFor="remember">

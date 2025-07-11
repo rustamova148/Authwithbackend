@@ -7,8 +7,8 @@ const Inputsimple = ({
     type = "email",
     value,
     onChange,
-    required = false,
-    name
+    name,
+    error
 }:InputSimpleProps) => {
     return(
         <div className={styles.inputGroup}>
@@ -18,11 +18,12 @@ const Inputsimple = ({
           type={type}
           value={value}
           onChange={onChange}
-          required={required}
           placeholder=" " 
-          className={styles.input}
+          className={error ? `${styles.input} ${styles.inputError}` 
+          : styles.input}
           />
-          <label htmlFor={id} className={styles.label}>
+          <label htmlFor={id} className={error ? `${styles.label} ${styles.labelError}` 
+          : styles.label}>
             {label}
           </label>
         </div>

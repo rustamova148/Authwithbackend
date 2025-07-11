@@ -9,8 +9,8 @@ const Inputwithicon = ({
     label,
     value,
     onChange,
-    required = false,
-    name
+    name,
+    error
 }:InputWithIconProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -23,11 +23,12 @@ const Inputwithicon = ({
           type={showPassword ? "text" : "password"}
           value={value}
           onChange={onChange}
-          required={required}
           placeholder=" " 
-          className={styles.input}
+          className={error ? `${styles.input} ${styles.inputError}` 
+          : styles.input}
           />
-          <label htmlFor={id} className={styles.label}>
+          <label htmlFor={id} className={error ? `${styles.label} ${styles.labelError}` 
+          : styles.label}>
             {label}
           </label>
 
