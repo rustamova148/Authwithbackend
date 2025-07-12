@@ -2,6 +2,7 @@ import api from "./api"
 import type 
 { RegisterData, LoginData, ForgotPasswordData, VerifyCodeData, SetNewPasswordData } 
 from "../types/formDataTypes";
+import {requestWithRefresh} from "../services/requestWithRefresh"
 
 export const registerUser = async (data: RegisterData) => {
     const response = await api.post("/api/auth/Register", data);
@@ -14,13 +15,10 @@ export const loginUser = async (data: LoginData) => {
 }
 
 export const getUserInfo = async () => {
-const token = localStorage.getItem("accessToken");
-    const response = await api.get("/api/Auth/Info", {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    return response.data;
+  return requestWithRefresh({
+    method: 'GET',
+    url: '/api/Auth/Info',
+  });
 } 
 
 export const sendOtpCode = async (data: ForgotPasswordData) => {
@@ -38,21 +36,23 @@ export const resetPassword = async (data: SetNewPasswordData) => {
     return response.data;
 }
 
-export const refreshAccessToken = async () => {
+export const refreshToken = async () => {
   const refreshToken = localStorage.getItem("refreshToken");
+  if (!refreshToken) return null;
 
-  if (!refreshToken) throw new Error("Refresh token tapılmadı");
+  try {
+    const response = await api.post("/api/Auth/Refresh", {refreshToken: refreshToken});
 
-  const response = await api.post("/api/Auth/Refresh", {
-    refreshToken: refreshToken,
-  });
-
-  const { accessToken, refreshToken: newRefreshToken } = response.data;
-
-  localStorage.setItem("accessToken", accessToken);
-  if (newRefreshToken) {
-    localStorage.setItem("refreshToken", newRefreshToken);
+    if (response.data?.accessToken) {
+      localStorage.setItem("accessToken", response.data.accessToken);
+      return response.data.accessToken;
+    }
+    return null;
+  } catch (error) {
+    console.error("Refresh token yenilenmedi", error);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    return null;
   }
-
-  return accessToken;
 };
+

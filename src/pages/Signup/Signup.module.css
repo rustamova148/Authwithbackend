@@ -46,15 +46,6 @@
 .lastname_inp_cont{
     padding-left: 9px;
 }
-.head{
-    font-weight: 600;
-    font-size: 1.9rem;
-}
-.text{
-    font-weight: 400;
-    color: #5e5e5e;
-    margin-top: -0.6rem;
-}
 .agree{
     display: flex;
     align-items: center;

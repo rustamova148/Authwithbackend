@@ -57,8 +57,8 @@ const Verifycode = () => {
           </div>
           </Link>
           <div className={styles.verify_text}>
-            <p className={styles.head}>Verify Code</p>
-            <p className={styles.text}>
+            <p className="head">Verify Code</p>
+            <p className="text">
               An authentication code has been sent to your email.
             </p>
           </div>

@@ -65,8 +65,8 @@ const Login = () => {
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
-            <p className={styles.head}>Login</p>
-            <p className={styles.text}>
+            <p className="head">Login</p>
+            <p className="text">
               Login to access your travelwise account
             </p>
           </div>

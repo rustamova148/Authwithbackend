@@ -47,8 +47,8 @@ const Forgotpassword = () => {
           </div>
           </Link>
           <div>
-            <p className={styles.head}>Forgot your password?</p>
-            <p className={styles.text}>
+            <p className="head">Forgot your password?</p>
+            <p className="text">
               Don’t worry, happens to all of us. Enter your email below to
               recover your password
             </p>

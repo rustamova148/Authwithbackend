@@ -3,8 +3,23 @@
 
 :root {
   --font-main: 'Poppins', sans-serif;
+  --text-color: #5e5e5e;
+  --text-margin-top: -0.6rem;
+  --text-font-weight: 400;
+  --head-font-weight: 600;
+  --head-font-size: 1.9rem;
 }
 
 body{
-    font-family: var(--font-main);
+  font-family: var(--font-main);
+}
+
+.text{
+  color: var(--text-color);
+  margin-top: var(--text-margin-top);
+  font-weight: var(--text-font-weight);
+}
+.head{
+    font-weight: var(--head-font-weight);
+    font-size: var(--head-font-size);
 }

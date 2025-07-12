@@ -50,8 +50,8 @@ const Setnewpassword = () => {
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.setnewpassword_text}>
-            <p className={styles.head}>Set a password</p>
-            <p className={styles.text}>
+            <p className="head">Set a password</p>
+            <p className="text">
               Your previous password has been reseted. Please set a new password
               for your account.
             </p>

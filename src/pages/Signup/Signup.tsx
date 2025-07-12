@@ -78,8 +78,8 @@ const Signup = () => {
         <img src={logo} width={170} className={styles.logo} alt="Logo" />
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
-            <p className={styles.head}>Sign up</p>
-            <p className={styles.text}>
+            <p className="head">Sign up</p>
+            <p className="text">
               Let’s get you all st up so you can access your personal account.
             </p>
           </div>
