@@ -49,8 +49,6 @@ const Signup = () => {
    toast.success("Qeydiyyat ugurlu oldu");
    navigate("/login");
   }catch(error: unknown){
-   console.error("Xeta bas verdi", error);
-   toast.error("Xeta bas verdi");
    const err = error as AxiosError<ValidationErrorResponseRegister>;
    if(err.response && err.response.status === 400){
     const errors = err.response.data;
@@ -71,7 +69,7 @@ const Signup = () => {
     }
    }else{
     console.error("Basqa bir xeta", err);
-    toast.error("Xeta");
+    toast.error('Xeta');
    }
   }
   }
