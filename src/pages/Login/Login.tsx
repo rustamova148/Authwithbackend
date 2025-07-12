@@ -13,6 +13,7 @@ import type { LoginData } from "../../types/formDataTypes";
 import { loginUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import type {ValidationErrorResponseLogin} from "../../types/validationErrorTypes";
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Login = () => {
   e.preventDefault();
   try{
    const result = await loginUser(formData);
-   alert("Ugurlu login");
+   toast.success("Ugurlu login");
    console.log(result);
    navigate("/profile");
    localStorage.setItem("accessToken", result.accessToken);
@@ -55,6 +56,7 @@ const Login = () => {
     }
    }else{
     console.error("Basqa bir xeta", err);
+    toast.error("Xeta")
    }
   }
   }

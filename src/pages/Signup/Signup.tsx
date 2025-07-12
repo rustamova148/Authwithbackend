@@ -13,6 +13,7 @@ import { registerUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import type {ValidationErrorResponseRegister} from "../../types/validationErrorTypes"
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -45,9 +46,11 @@ const Signup = () => {
   try{
    const result = await registerUser(formData);
    console.log("Qeydiyyat ugurlu oldu", result);
+   toast.success("Qeydiyyat ugurlu oldu");
    navigate("/login");
   }catch(error: unknown){
    console.error("Xeta bas verdi", error);
+   toast.error("Xeta bas verdi");
    const err = error as AxiosError<ValidationErrorResponseRegister>;
    if(err.response && err.response.status === 400){
     const errors = err.response.data;
@@ -68,6 +71,7 @@ const Signup = () => {
     }
    }else{
     console.error("Basqa bir xeta", err);
+    toast.error("Xeta");
    }
   }
   }

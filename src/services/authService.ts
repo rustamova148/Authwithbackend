@@ -3,6 +3,7 @@ import type
 { RegisterData, LoginData, ForgotPasswordData, VerifyCodeData, SetNewPasswordData } 
 from "../types/formDataTypes";
 import {requestWithRefresh} from "../services/requestWithRefresh"
+import type { UserInfo } from "../types/userInfoTypes";
 
 export const registerUser = async (data: RegisterData) => {
     const response = await api.post("/api/auth/Register", data);
@@ -14,8 +15,8 @@ export const loginUser = async (data: LoginData) => {
     return response.data;
 }
 
-export const getUserInfo = async () => {
-  return requestWithRefresh({
+export const getUserInfo = async (): Promise<UserInfo> => {
+  return requestWithRefresh<UserInfo>({
     method: 'GET',
     url: '/api/Auth/Info',
   });

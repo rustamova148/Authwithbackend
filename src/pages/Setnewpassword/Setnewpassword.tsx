@@ -6,6 +6,7 @@ import logo from "../../assets/Logo (2).png";
 import setnewpasswordpic from "../../assets/Setnewpasswordpic.png";
 import { resetPassword } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const Setnewpassword = () => {
   const navigate = useNavigate();
@@ -37,10 +38,11 @@ const Setnewpassword = () => {
   e.preventDefault();
   try{
    await resetPassword(formData);
-   alert("Parolunuz ugurla yenilendi");
+   toast.success("Parolunuz ugurla yenilendi");
    navigate("/login");
   }catch(error){
    console.error("Xeta bas verdi", error);
+   toast.error("Xeta bas verdi");
   }
   }
 

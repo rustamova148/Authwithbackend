@@ -8,6 +8,7 @@ import forgotpasswordpic from "../../assets/Forgotpasswordpic.png";
 import { AppleIcon, ArrowIcon, FacebookIcon, GoogleIcon } from "../../components/ui/Icons";
 import { sendOtpCode } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const Forgotpassword = () => {
   const navigate = useNavigate();
@@ -27,11 +28,12 @@ const Forgotpassword = () => {
   e.preventDefault();
   try{
   await sendOtpCode(formData);
-  alert("Emaili yoxla");
+  toast.success("Emaili yoxla");
   navigate("/verifycode");
   localStorage.setItem("email_for_reset", formData.email);
   }catch(error){
   console.error('Xeta bas verdi', error);
+  toast.error('Xeta bas verdi')
   }
   }
 

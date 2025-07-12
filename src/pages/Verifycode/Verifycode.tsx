@@ -8,6 +8,7 @@ import verifycodepic from "../../assets/Verifycodepic.png";
 import { ArrowIcon } from "../../components/ui/Icons";
 import { verifyOtpCode } from "../../services/authService";
 import { useNavigate } from "react-router-dom"
+import { toast } from 'react-toastify';
 
 const Verifycode = () => {
   const navigate = useNavigate();
@@ -38,10 +39,11 @@ const Verifycode = () => {
   e.preventDefault();
   try{
   await verifyOtpCode(formData);
-  alert("Kod tesdiqlendi");
+  toast.success("Kod tesdiqlendi");
   navigate("/setnewpassword");
   }catch(error){
   console.error('Xeta bas verdi', error);
+  toast.error('Xeta bas verdi');
   }
   }
 
