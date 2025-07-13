@@ -4,6 +4,7 @@ import type
 from "../types/formDataTypes";
 import {requestWithRefresh} from "../services/requestWithRefresh"
 import type { UserInfo } from "../types/userInfoTypes";
+import type { GetUserParams } from "../types/paramsType";
 
 export const registerUser = async (data: RegisterData) => {
     const response = await api.post("/api/auth/Register", data);
@@ -57,3 +58,7 @@ export const refreshToken = async () => {
   }
 };
 
+export const getUsers = async (params: GetUserParams) => {
+  const response = await api.get("/api/Users", {params});
+  return response.data;
+}

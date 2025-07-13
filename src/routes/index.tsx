@@ -5,6 +5,7 @@ import Forgotpassword from "../pages/Forgotpassword/Forgotpassword";
 import Verifycode from "../pages/Verifycode/Verifycode";
 import Setnewpassword from "../pages/Setnewpassword/Setnewpassword";
 import Profile from "../pages/Profile/Profile";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -32,8 +33,13 @@ const router = createBrowserRouter([
         element: <Setnewpassword />
     },
     {
-        path: "/profile",
-        element: <Profile />
+        element: <ProtectedRoute />,
+        children: [
+            {
+               path: "/profile",
+               element: <Profile />
+            }
+        ]
     }
 ])
 

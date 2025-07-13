@@ -14,12 +14,14 @@ import { loginUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import type {ValidationErrorResponseLogin} from "../../types/validationErrorTypes";
 import { toast } from 'react-toastify';
+import { ClipLoader } from "react-spinners";
 
 const Login = () => {
   const navigate = useNavigate();
   const images = [loginswiperpic, loginswiperpic, loginswiperpic];
   const [ emailError, setEmailError ] = useState("");
   const [ passwordError, setPasswordError ] = useState("");
+  const [ loading, setLoading ] = useState(false);  
 
   const [formData, setFormData] = useState<LoginData>({
     email: "",
@@ -36,9 +38,9 @@ const Login = () => {
  
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  setLoading(true);
   try{
    const result = await loginUser(formData);
-   toast.success("Ugurlu login");
    console.log(result);
    navigate("/profile");
    localStorage.setItem("accessToken", result.accessToken);
@@ -58,6 +60,8 @@ const Login = () => {
     console.error("Basqa bir xeta", err);
     toast.error("Xeta")
    }
+  }finally{
+    setLoading(false);
   }
   }
 
@@ -107,7 +111,7 @@ const Login = () => {
             </span>
             </Link>
           </div>
-          <Button>Login</Button>
+          <Button>{loading ? <ClipLoader size={20} color="#ffffff" /> : 'Login'}</Button>
           <div className={styles.linktosignup_box}>
             <span className={styles.linktosignup_text}>
               Don’t have an account?

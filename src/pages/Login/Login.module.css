@@ -1,7 +1,7 @@
 .logo{
     margin-left: -1.9rem;
-    margin-top: -0.9375rem;
-    margin-bottom: 1.875rem;
+    margin-top: -1rem;
+    margin-bottom: 4rem;
 }
 .login_container{
     display: flex;
@@ -15,7 +15,7 @@
     gap: 2rem;
 }
 .form{
-    width: 30.4rem;
+    width: 28.7rem;
     margin-top: -3.125rem;
 }
 .rectangle{
@@ -30,7 +30,8 @@
     margin-top: 0.3rem;
 }
 .recs span{
-    color:  rgb(158, 158, 158);
+    color: rgb(158, 158, 158);
+    font-size: 13px;
 }
 .loginwithother{
     display: flex;
@@ -39,7 +40,7 @@
     margin-top: 0.7rem;
 }
 .loginwithother div{
-    width: 9.4rem;
+    width: 8.7rem;
     height: 2.5rem;
     border-radius: 0.25rem;
     border: 1px solid #515DEF;
@@ -100,11 +101,11 @@
 }
 .email_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 0.125rem;
 }
 .password_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 0.25rem;
 }

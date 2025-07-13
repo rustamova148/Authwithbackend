@@ -1,0 +1,23 @@
+.navbar{
+    height: 60px;
+    background: #e2e2ff;
+    padding: 15px 20px;
+}
+.user{
+    font-size: 30px;
+    color: #8b8b8b;
+}
+.user_profile{
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    float: right;
+}
+.logout{
+    background-color: #8b8b8b;
+    border: none;
+    color: white;
+    padding: 7px;
+    border-radius: 4px;
+    cursor: pointer
+}

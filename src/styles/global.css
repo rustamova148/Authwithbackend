@@ -8,6 +8,13 @@
   --text-font-weight: 400;
   --head-font-weight: 600;
   --head-font-size: 1.9rem;
+  --head-margin-bottom: 1rem;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body{
@@ -20,6 +27,7 @@ body{
   font-weight: var(--text-font-weight);
 }
 .head{
-    font-weight: var(--head-font-weight);
-    font-size: var(--head-font-size);
+  font-weight: var(--head-font-weight);
+  font-size: var(--head-font-size);
+  margin-bottom: var(--head-margin-bottom);
 }

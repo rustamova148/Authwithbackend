@@ -3,8 +3,7 @@
 
 }
 .form{
-    width: 30.4rem;
-    margin-top: -40px;
+    width: 28.7rem;
 }
 .rectangle{
     width: 11rem;
@@ -19,15 +18,16 @@
 }
 .recs span{
     color:  rgb(158, 158, 158);
+    font-size: 13px;
 }
-.loginwithother{
+.signupwithother{
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 0.7rem;
 }
-.loginwithother div{
-    width: 9.4rem;
+.signupwithother div{
+    width: 8.7rem;
     height: 2.5rem;
     border-radius: 0.25rem;
     border: 1px solid #515DEF;
@@ -41,7 +41,7 @@
     margin-top: -0.8rem;
 }
 .inputs input{
-    width: 13.2rem;
+    width: 14rem;
 }
 .lastname_inp_cont{
     padding-left: 9px;
@@ -100,31 +100,34 @@
 }
 .email_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 3px;
 }
 .password_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 3px;
 }
 .phone_number_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 3px;
 }
 .firstname_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 3px;
 }
 .lastname_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 3px;
 }
 .confirm_password_error{
     color: red;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     margin-top: 3px;
+}
+.swiper_container{
+    margin-top: 13px;
 }

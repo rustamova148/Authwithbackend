@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import type {ValidationErrorResponseRegister} from "../../types/validationErrorTypes"
 import { toast } from 'react-toastify';
+import { ClipLoader } from "react-spinners";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Signup = () => {
   const [ emailError, setEmailError ] = useState("");
   const [ passwordError, setPasswordError ] = useState("");
   const [ phoneNumberError, setPhoneNumberError ] = useState("");
+  const [loading, setLoading] = useState(false);  
 
   const [formData, setFormData] = useState<RegisterData>({
     firstName: "",
@@ -43,10 +45,10 @@ const Signup = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  setLoading(true);
   try{
    const result = await registerUser(formData);
    console.log("Qeydiyyat ugurlu oldu", result);
-   toast.success("Qeydiyyat ugurlu oldu");
    navigate("/login");
   }catch(error: unknown){
    const err = error as AxiosError<ValidationErrorResponseRegister>;
@@ -71,6 +73,8 @@ const Signup = () => {
     console.error("Basqa bir xeta", err);
     toast.error('Xeta');
    }
+  }finally{
+    setLoading(false);
   }
   }
 
@@ -170,7 +174,7 @@ const Signup = () => {
               <span className={styles.agree_red}>Privacy Policies</span>
             </label>
           </div>
-          <Button>Create account</Button>
+          <Button>{loading ? <ClipLoader size={20} color="#ffffff" /> : 'Create Account'}</Button>
           <div className={styles.linktologin_box}>
             <span className={styles.linktologin_text}>
               Already have an account?
@@ -184,7 +188,7 @@ const Signup = () => {
             <span>Or Sign up with</span>
             <div className={styles.rectangle}></div>
           </div>
-          <div className={styles.loginwithother}>
+          <div className={styles.signupwithother}>
             <div>
               <FacebookIcon />
             </div>
