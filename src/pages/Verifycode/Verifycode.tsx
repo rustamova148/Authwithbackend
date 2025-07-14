@@ -7,11 +7,14 @@ import logo from "../../assets/Logo (2).png";
 import verifycodepic from "../../assets/Verifycodepic.png";
 import { ArrowIcon } from "../../components/ui/Icons";
 import { verifyOtpCode } from "../../services/authService";
+import { sendOtpCode } from "../../services/authService";
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
+import { ClipLoader } from "react-spinners";
 
 const Verifycode = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     code: "",
     email: ""
@@ -37,6 +40,7 @@ const Verifycode = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  setLoading(true);
   try{
   await verifyOtpCode(formData);
   toast.success("Kod tesdiqlendi");
@@ -44,6 +48,19 @@ const Verifycode = () => {
   }catch(error){
   console.error('Xeta bas verdi', error);
   toast.error('Xeta bas verdi');
+  }finally{
+    setLoading(false);
+  }
+  }
+  
+  const handleResend = async () => {
+  try{
+    await sendOtpCode(formData);
+    toast.success("Emaili yoxla");
+    localStorage.setItem("email_for_reset", formData.email);
+    }catch(error){
+    console.error('Xeta bas verdi', error);
+    toast.error('Xeta bas verdi')
   }
   }
 
@@ -76,10 +93,12 @@ const Verifycode = () => {
           <div className={styles.linktoresend_box}>
             <span className={styles.linktoresend_text}>
               Didn't receive a code?
+              <button type="button" onClick={handleResend}>
               <span className={styles.linktoresend}> Resend</span>
+              </button>
             </span>
           </div>
-          <Button>Verify</Button>
+          <Button>{loading ? <ClipLoader size={20} color="#ffffff" /> : 'Verify'}</Button>
         </form>
       </div>
       <div className={styles.image_container}>

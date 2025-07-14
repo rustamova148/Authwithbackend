@@ -9,9 +9,11 @@ import { AppleIcon, ArrowIcon, FacebookIcon, GoogleIcon } from "../../components
 import { sendOtpCode } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { ClipLoader } from "react-spinners";
 
 const Forgotpassword = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: ""
   });
@@ -26,14 +28,16 @@ const Forgotpassword = () => {
   
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  setLoading(true);
   try{
   await sendOtpCode(formData);
-  toast.success("Emaili yoxla");
   navigate("/verifycode");
   localStorage.setItem("email_for_reset", formData.email);
   }catch(error){
   console.error('Xeta bas verdi', error);
   toast.error('Xeta bas verdi')
+  }finally{
+    setLoading(false);
   }
   }
 
@@ -64,7 +68,7 @@ const Forgotpassword = () => {
             type="email"
             name="email"
           />
-          <Button>Submit</Button>
+          <Button>{loading ? <ClipLoader size={20} color="#ffffff" /> : 'Submit'}</Button>
           <div className={styles.recs}>
             <div className={styles.rectangle}></div>
             <span>Or login with</span>

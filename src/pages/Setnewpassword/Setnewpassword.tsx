@@ -7,9 +7,11 @@ import setnewpasswordpic from "../../assets/Setnewpasswordpic.png";
 import { resetPassword } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { ClipLoader } from "react-spinners";
 
 const Setnewpassword = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     newPassword: "",
@@ -36,13 +38,15 @@ const Setnewpassword = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  setLoading(true);
   try{
    await resetPassword(formData);
-   toast.success("Parolunuz ugurla yenilendi");
    navigate("/login");
   }catch(error){
    console.error("Xeta bas verdi", error);
    toast.error("Xeta bas verdi");
+  }finally{
+    setLoading(true);
   }
   }
 
@@ -76,7 +80,7 @@ const Setnewpassword = () => {
             required
             type="password"
           />
-          <Button>Set Password</Button>
+          <Button>{loading ? <ClipLoader size={20} color="#ffffff" /> : 'Set password'}</Button>
         </form>
       </div>
       <div className={styles.image_container}>

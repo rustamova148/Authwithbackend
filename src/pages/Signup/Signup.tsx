@@ -174,7 +174,7 @@ const Signup = () => {
               <span className={styles.agree_red}>Privacy Policies</span>
             </label>
           </div>
-          <Button>{loading ? <ClipLoader size={20} color="#ffffff" /> : 'Create Account'}</Button>
+          <Button>{loading ? <ClipLoader size={20} color="#ffffff" /> : 'Create account'}</Button>
           <div className={styles.linktologin_box}>
             <span className={styles.linktologin_text}>
               Already have an account?
