@@ -13,7 +13,7 @@
     margin-top: -8.7rem;
 }
 .form{
-    width: 30.4rem;
+    width: 28.7rem;
     margin-top: -1.25rem;
     margin-top: 1.9rem;
 }
@@ -39,4 +39,5 @@
 .backto_login div{
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
 }
