@@ -1,0 +1,15 @@
+.user_card {
+  padding: 20px;
+  background: #f9f9f9;
+  max-width: 400px;
+  margin: 80px auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0000001a;
+}
+.user_card h2{
+    margin-bottom: 20px;
+}
+.user_card p {
+  margin-bottom: 8px;
+  font-size: 16px;
+}

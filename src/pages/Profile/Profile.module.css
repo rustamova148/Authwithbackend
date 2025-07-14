@@ -1,14 +1,13 @@
-
 .table {
   width: 70%;
   border-collapse: collapse;
   font-family: 'Poppins', sans-serif;
   background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px #0000001a;
   border-radius: 8px;
-  overflow: hidden;
   margin: 0 auto;
   margin-top: 50px;
+  position: relative;
 }
 
 .thead {
@@ -59,4 +58,91 @@
     cursor: pointer;
     border: none;
     padding: 10px;
+}
+.actions_btn{
+  background-color: #E2E2FF;
+  border: none;
+  outline: none;
+  margin-left: 16px;
+  padding: 4px 7px;
+}
+.actions_btn i{
+  font-size: 20px;
+  color: #4B5563;
+  cursor: pointer;
+}
+.td_third{
+  position: relative;
+}
+.actions_modal{
+  width: 90px;
+  height: 70px;
+  position: absolute;
+  background-color: #e2e2e2;
+  border: 1px solid #4B5563;
+  z-index: 3;
+  top: 26px;
+  left: 46px;
+  list-style-type: none;
+}
+.actions_modal li{
+  height: 50%;
+  padding: 4px;
+}
+.actions_modal li:hover{
+  background-color: #afb3bb;
+}
+.edit_btn,
+.delete_btn{
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.edit_btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: purple;
+}
+.delete_btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: red;
+}
+.overlay_edit{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(97, 97, 97, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit_box{
+  padding: 30px;
+  width: 400px;
+  height: 370px;
+  background-color: white;
+  border-radius: 8px;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 7px;
+}
+.form input{
+  outline: none;
+  border: none;
+  border: 1px solid #c2c1c1;
+  padding: 10px;
+  border-radius: 6px;
 }

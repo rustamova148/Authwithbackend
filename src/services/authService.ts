@@ -62,3 +62,13 @@ export const getUsers = async (params: GetUserParams) => {
   const response = await api.get("/api/Users", {params});
   return response.data;
 }
+
+export const getUser = async (id: string | undefined) => {
+  const response = await api.get(`/api/Users/${id}`);
+  return response.data
+}
+
+export const deleteUser = async (id: string) => {
+  const response = await api.delete(`/api/Users/${id}`);
+  return response.data;
+};
