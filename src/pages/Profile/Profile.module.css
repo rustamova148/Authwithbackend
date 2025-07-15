@@ -161,3 +161,9 @@
   align-items: center;
   padding: 2rem;
 }
+.clip_tr{
+  height: 259.5px;
+}
+.clip_td{
+  text-align: center;
+}
