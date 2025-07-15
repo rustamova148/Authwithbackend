@@ -9,6 +9,7 @@ import type { UserDetailInfo } from "../../types/userInfoTypes"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { editUser } from "../../services/authService"
+import { ClipLoader } from "react-spinners";
 
 const Profile = () => { 
 const navigate = useNavigate();
@@ -20,6 +21,7 @@ const [pageNumber, setPageNumber] = useState(1);
 const [actionsId, setActionsId] = useState<string | null>(null);
 const [showEditModal, setShowEditModal] = useState(false);
 const [selectedUser, setSelectedUser] = useState<UserDetailInfo | null>(null);
+const [loading, setLoading] = useState(false);
 const [formData, setFormData] = useState({
   id: "",
   firstName: "",
@@ -47,6 +49,7 @@ useEffect(() => {
 
 useEffect(() => {
 const fetchUsers = async () => {
+  setLoading(true);
   try{
   const response = await getUsers(
     { SearchPhrase: search,
@@ -59,6 +62,8 @@ const fetchUsers = async () => {
   setTotalCount(response.totalCount);
   }catch(error){
    console.error(error);
+  }finally{
+    setLoading(false);
   }
 }
 fetchUsers();
@@ -145,7 +150,11 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         onChange={e => setSearch(e.target.value)}
         className = {styles.search}
       />
-      <table className={styles.table}>
+      {loading ? 
+      <div className={styles.spinnerWrapper}>
+      <ClipLoader size={50} color="#007bff" />
+      </div> : (
+        <table className={styles.table}>
         <thead className={styles.thead}>
           <tr>
             <th className={styles.th}>Full name</th>
@@ -185,6 +194,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           ))}
         </tbody>
       </table>
+      )}
       {showEditModal && (
         <div className={styles.overlay_edit} onClick={closeShowEditModal}>
           <div className={styles.edit_box} onClick={(e) => e.stopPropagation()}>
