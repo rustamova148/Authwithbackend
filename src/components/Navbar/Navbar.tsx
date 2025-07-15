@@ -1,28 +1,16 @@
-import { useState, useEffect } from 'react'
-import type { UserInfo } from "../../types/userInfoTypes"
-import { getUserInfo } from "../../services/authService"
 import styles from "./Navbar.module.css"
 import { useNavigate } from "react-router-dom"
+import type { UserInfo } from "../../types/userInfoTypes"
 
-const Navbar = () => {
-const [user, setUser] = useState<UserInfo | null>(null);
+type Props = {
+  user: UserInfo | null;
+};
+
+const Navbar = ({user}: Props) => {
 const navigate = useNavigate(); 
-
-useEffect(() => {
-const fetchUser = async () => {
-    try{
-      const response = await getUserInfo();
-      setUser(response);
-    }catch(error){
-      console.error("İstifadəçi məlumatları alınmadı", error);
-    }
-}
-fetchUser();
-},[])
 
 const splitted = user?.fullname.split(/(?=[A-Z])/);
 const joined = splitted?.join(" ");
-console.log(joined);
 
 const handleLogout = () => {
     localStorage.removeItem("accessToken");

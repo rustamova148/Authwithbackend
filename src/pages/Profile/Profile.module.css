@@ -35,7 +35,7 @@
 }
 
 .search{
-    width: 50%;
+    width: 35%;
     display: block;
     margin: 0 auto;
     margin-top: 30px;
@@ -46,18 +46,13 @@
     border-radius: 20px;
 }
 .pagination_control{
-    width: 100px;
-    margin: 0 auto;
     margin-top: 60px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
 }
-.pagination_control button{
-    background-color: #e2e2ff;
-    cursor: pointer;
-    border: none;
-    padding: 10px;
+.pagination_control div{
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
 }
 .actions_btn{
   background-color: #E2E2FF;
@@ -166,4 +161,17 @@
 }
 .clip_td{
   text-align: center;
+}
+.activebtn{
+  background-color: #a3a3ff;
+  cursor: pointer;
+  border: none;
+  padding: 10px 15px;
+}
+.pag_btn,
+.next_prev_btn{
+  background-color: #e2e2ff;
+  cursor: pointer;
+  border: none;
+  padding: 10px 15px;
 }

@@ -1,6 +1,8 @@
+import { useSearchParams } from 'react-router-dom';
 import Navbar from "../../components/Navbar/Navbar";
 import styles from "./Profile.module.css";
 import { getUsers } from "../../services/authService";
+import { getUserInfo } from "../../services/authService";
 import { getUser } from "../../services/authService";
 import { deleteUser } from "../../services/authService";
 import { useEffect, useState } from "react";
@@ -13,11 +15,15 @@ import { ClipLoader } from "react-spinners";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get('page');
+  const currentPage = pageParam ? parseInt(pageParam) : 1;
+  const [pageNumber, setPageNumber] = useState(currentPage);
+  const [user, setUser] = useState<UserInfo | null>(null);
   const [allUsers, setAllUsers] = useState<UserInfo[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
   const [pageSize] = useState(7);
-  const [pageNumber, setPageNumber] = useState(1);
   const [actionsId, setActionsId] = useState<string | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserDetailInfo | null>(null);
@@ -29,6 +35,20 @@ const Profile = () => {
     email: "",
     phoneNumber: "",
   });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await getUserInfo();
+        setUser(response);
+      } catch (error) {
+        console.error("İstifadəçi məlumatları alınmadı", error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  console.log("Login olan user:", user);
 
   useEffect(() => {
     if (selectedUser) {
@@ -43,8 +63,8 @@ const Profile = () => {
   }, [selectedUser]);
 
   useEffect(() => {
-    setPageNumber(1);
-  }, [search]);
+    setPageNumber(currentPage);
+  }, [search, currentPage]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -138,9 +158,32 @@ const Profile = () => {
       console.error("Xeta bas verdi", error);
     }
   };
+
+  const totalPages = Math.ceil(totalCount / pageSize);
+  const pageGroupSize = 4;
+
+  // Hansi blokdayiq (0, 1, 2, ...)
+  const currentGroup = Math.floor((pageNumber - 1) / pageGroupSize);
+
+  // Bu blokda baslayan ve biten page nomreleri
+  const startPage = currentGroup * pageGroupSize + 1;
+  const endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
+
+  // Butun page nomrelerini array olaraq topla
+  const pageNumbers = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pageNumbers.push(i);
+  }
+
+  const handlePageChange = (updater: number | ((prev: number) => number)) => {
+    const nextPage = typeof updater === 'function' ? updater(pageNumber) : updater;
+    setPageNumber(nextPage);
+    setSearchParams({ page: nextPage.toString() }); // URL-də ?page=page dəyərini qoyur
+  };
+
   return (
     <div>
-      <Navbar />
+      <Navbar user={user} />
       <input
         type="text"
         placeholder="Axtar..."
@@ -164,46 +207,49 @@ const Profile = () => {
               </td>
             </tr>
           ) : (
-            allUsers.map((user) => (
-              <tr
-                key={user.id}
-                onClick={() => navigate(`/users/${user.id}`)}
-                className={styles.tbodyTrHover}
-              >
-                <td className={styles.td}>{user.fullname}</td>
-                <td className={styles.td}>{user.email}</td>
-                <td className={`${styles.td} ${styles.td_third}`}>
-                  <button
-                    onClick={(e) => handleActions(e, user.id)}
-                    className={styles.actions_btn}
-                  >
-                    <i className="fa-solid fa-ellipsis"></i>
-                  </button>
-                  {actionsId === user.id && (
-                    <ul className={styles.actions_modal}>
-                      <li>
-                        <button
-                          className={styles.edit_btn}
-                          onClick={(e) => handleEdit(e, user.id)}
-                        >
-                          <i className="fa-solid fa-pen"></i>
-                          <span>Edit</span>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          className={styles.delete_btn}
-                          onClick={() => handleDelete(user.id)}
-                        >
-                          <i className="fa-solid fa-trash"></i>
-                          <span>Delete</span>
-                        </button>
-                      </li>
-                    </ul>
-                  )}
-                </td>
-              </tr>
-            ))
+            allUsers
+              .filter((au) => au.id != user?.id)
+              .map((u) => (
+                // profildeki adi filter etmek alinmadi
+                <tr
+                  key={u.id}
+                  onClick={() => navigate(`/users/${u.id}`)}
+                  className={styles.tbodyTrHover}
+                >
+                  <td className={styles.td}>{u.fullname}</td>
+                  <td className={styles.td}>{u.email}</td>
+                  <td className={`${styles.td} ${styles.td_third}`}>
+                    <button
+                      onClick={(e) => handleActions(e, u.id)}
+                      className={styles.actions_btn}
+                    >
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </button>
+                    {actionsId === u.id && (
+                      <ul className={styles.actions_modal}>
+                        <li>
+                          <button
+                            className={styles.edit_btn}
+                            onClick={(e) => handleEdit(e, u.id)}
+                          >
+                            <i className="fa-solid fa-pen"></i>
+                            <span>Edit</span>
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            className={styles.delete_btn}
+                            onClick={() => handleDelete(u.id)}
+                          >
+                            <i className="fa-solid fa-trash"></i>
+                            <span>Delete</span>
+                          </button>
+                        </li>
+                      </ul>
+                    )}
+                  </td>
+                </tr>
+              ))
           )}
         </tbody>
       </table>
@@ -249,23 +295,31 @@ const Profile = () => {
         </div>
       )}
       <div className={styles.pagination_control}>
-        <button
-          onClick={() => setPageNumber((prev) => Math.max(prev - 1, 1))}
-          disabled={pageNumber === 1}
-        >
-          <i className="fa-solid fa-angles-left"></i>
-        </button>
-        <p>{pageNumber}</p>
-        <button
-          onClick={() =>
-            setPageNumber((prev) =>
-              prev < Math.ceil(totalCount / pageSize) ? prev + 1 : prev
-            )
-          }
-          disabled={pageNumber >= Math.ceil(totalCount / pageSize)}
-        >
-          <i className="fa-solid fa-angles-right"></i>
-        </button>
+        <div>
+          <button
+            onClick={() => handlePageChange((prev) => Math.max(prev - 1, 1))}
+            disabled={pageNumber === 1} className={styles.next_prev_btn}
+          >
+            <i className="fa-solid fa-angles-left"></i>
+          </button>
+          {pageNumbers.map((page) => (
+            <button key={page} onClick={() => handlePageChange(page)} 
+            className={`${page === pageNumber ? styles.activebtn : styles.pag_btn}`}>
+              {page}
+            </button>
+          ))}
+          <button
+            onClick={() =>
+              handlePageChange((prev) =>
+                prev < Math.ceil(totalCount / pageSize) ? prev + 1 : prev
+              )
+            }
+            disabled={pageNumber >= Math.ceil(totalCount / pageSize)}
+            className={styles.next_prev_btn}
+          >
+            <i className="fa-solid fa-angles-right"></i>
+          </button>
+        </div>
       </div>
     </div>
   );
