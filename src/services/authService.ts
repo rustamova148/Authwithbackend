@@ -5,6 +5,7 @@ from "../types/formDataTypes";
 import {requestWithRefresh} from "../services/requestWithRefresh"
 import type { UserInfo } from "../types/userInfoTypes";
 import type { GetUserParams } from "../types/paramsType";
+import type { editData } from "../types/formDataTypes";
 
 export const registerUser = async (data: RegisterData) => {
     const response = await api.post("/api/auth/Register", data);
@@ -72,3 +73,8 @@ export const deleteUser = async (id: string) => {
   const response = await api.delete(`/api/Users/${id}`);
   return response.data;
 };
+
+export const editUser = async (data: editData) => {
+  const response = await api.put('/api/Users', data);
+  return response.data;
+}

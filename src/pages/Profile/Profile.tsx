@@ -8,6 +8,7 @@ import type { UserInfo } from "../../types/userInfoTypes"
 import type { UserDetailInfo } from "../../types/userInfoTypes"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import { editUser } from "../../services/authService"
 
 const Profile = () => { 
 const navigate = useNavigate();
@@ -19,6 +20,25 @@ const [pageNumber, setPageNumber] = useState(1);
 const [actionsId, setActionsId] = useState<string | null>(null);
 const [showEditModal, setShowEditModal] = useState(false);
 const [selectedUser, setSelectedUser] = useState<UserDetailInfo | null>(null);
+const [formData, setFormData] = useState({
+  id: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: ""
+})
+
+useEffect(() => {
+if(selectedUser){
+  setFormData({
+    id: selectedUser.id,
+    firstName: selectedUser.firstName,
+    lastName: selectedUser.lastName,
+    email: selectedUser.email,
+    phoneNumber: selectedUser.phoneNumber
+  })
+}
+},[selectedUser])
 
 useEffect(() => {
   setPageNumber(1);
@@ -73,7 +93,7 @@ const handleDelete = async (id: string) => {
   try{
     await deleteUser(id);
     setAllUsers(prev => prev.filter(user => user.id !== id));
-    navigate("/login");
+    navigate("/profile");
     toast.success("Istifadeci silindi");
     setActionsId(null);
     
@@ -84,6 +104,36 @@ const handleDelete = async (id: string) => {
     
     console.log("Silinəcək user ID:", id);
   }
+}
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const {name, value} = e.target;
+setFormData(prev => ({
+  ...prev,
+  [name]: value
+}))
+}
+console.log(formData);
+
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  try{
+  await editUser(formData);
+  const response = await getUsers(
+    { SearchPhrase: search,
+      PageSize: pageSize,
+      PageNumber: pageNumber,
+    }
+  );
+  const userspart = response.users;
+  setAllUsers(userspart);
+  toast.success("Istifadeci ugurla redakte olundu");
+  setShowEditModal(false);
+  setActionsId(null);
+  }catch(error){
+   console.error('Xeta bas verdi', error)
+  }
+
 }
     return(
      <div>
@@ -138,15 +188,20 @@ const handleDelete = async (id: string) => {
       {showEditModal && (
         <div className={styles.overlay_edit} onClick={closeShowEditModal}>
           <div className={styles.edit_box} onClick={(e) => e.stopPropagation()}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit}>
             <label htmlFor="fname">First Name</label>
-            <input type="text" id="fname" value={selectedUser?.firstName} />
+            <input type="text" id="fname" name="firstName" value={formData.firstName} 
+            onChange={handleChange} />
             <label htmlFor="lname">Last Name</label>
-            <input type="text" id="lname" value={selectedUser?.lastName} />
+            <input type="text" id="lname" name="lastName" value={formData.lastName}
+            onChange={handleChange} />
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" value={selectedUser?.email} />
+            <input type="email" id="email" name="email" value={formData.email}
+            onChange={handleChange} />
             <label htmlFor="fnumber">Phone Number</label>
-            <input type="tel" id="fnumber" value={selectedUser?.phoneNumber} />
+            <input type="tel" id="fnumber" name="phoneNumber" value={formData.phoneNumber}
+            onChange={handleChange} />
+            <button>Submit</button>
             </form>
           </div>
         </div>

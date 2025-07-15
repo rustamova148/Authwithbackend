@@ -127,7 +127,7 @@
   align-items: center;
 }
 .edit_box{
-  padding: 30px;
+  padding: 25px;
   width: 400px;
   height: 370px;
   background-color: white;
@@ -143,6 +143,15 @@
   outline: none;
   border: none;
   border: 1px solid #c2c1c1;
-  padding: 10px;
+  padding: 6px;
   border-radius: 6px;
+}
+.form button{
+  margin-top: 12px;
+  padding: 9px;
+  background-color: #515DEF;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
 }
