@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import styles from "./Profile.module.css";
 import { getUsers } from "../../services/authService";
@@ -12,11 +12,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { editUser } from "../../services/authService";
 import { ClipLoader } from "react-spinners";
+import { refreshToken } from "../../services/authService";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const pageParam = searchParams.get('page');
+  const pageParam = searchParams.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1;
   const [pageNumber, setPageNumber] = useState(currentPage);
   const [user, setUser] = useState<UserInfo | null>(null);
@@ -67,8 +68,8 @@ const Profile = () => {
   }, [currentPage]);
 
   useEffect(() => {
-  setPageNumber(1);
-  setSearchParams({ page: '1' });
+    setPageNumber(1);
+    setSearchParams({ page: "1" });
   }, [search]);
 
   useEffect(() => {
@@ -156,6 +157,9 @@ const Profile = () => {
       });
       const userspart = response.users;
       setAllUsers(userspart);
+      await refreshToken();
+      const updatedUser = await getUserInfo(); 
+      setUser(updatedUser);
       toast.success("Istifadeci ugurla redakte olundu");
       setShowEditModal(false);
       setActionsId(null);
@@ -181,7 +185,8 @@ const Profile = () => {
   }
 
   const handlePageChange = (updater: number | ((prev: number) => number)) => {
-    const nextPage = typeof updater === 'function' ? updater(pageNumber) : updater;
+    const nextPage =
+      typeof updater === "function" ? updater(pageNumber) : updater;
     setPageNumber(nextPage);
     setSearchParams({ page: nextPage.toString() }); // URL-də ?page=page dəyərini qoyur
   };
@@ -213,9 +218,7 @@ const Profile = () => {
             </tr>
           ) : (
             allUsers
-              .filter((au) => au.id != user?.id)
               .map((u) => (
-                // profildeki adi filter etmek alinmadi
                 <tr
                   key={u.id}
                   onClick={() => navigate(`/users/${u.id}`)}
@@ -303,13 +306,19 @@ const Profile = () => {
         <div>
           <button
             onClick={() => handlePageChange((prev) => Math.max(prev - 1, 1))}
-            disabled={pageNumber === 1} className={styles.next_prev_btn}
+            disabled={pageNumber === 1}
+            className={styles.next_prev_btn}
           >
             <i className="fa-solid fa-angles-left"></i>
           </button>
           {pageNumbers.map((page) => (
-            <button key={page} onClick={() => handlePageChange(page)} 
-            className={`${page === pageNumber ? styles.activebtn : styles.pag_btn}`}>
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`${
+                page === pageNumber ? styles.activebtn : styles.pag_btn
+              }`}
+            >
               {page}
             </button>
           ))}
