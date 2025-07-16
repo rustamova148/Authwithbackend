@@ -7,11 +7,11 @@ React və TypeScript istifadə edilərək hazırlanmış, backend ilə tam inteq
 Layihədə aşağıdakı texnologiyalar istifadə olunub:
 - React
 - TypeScript
-- React Router Dom (useSearchParams ilə səhifələmə üçün)
-- Axios (API sorğuları üçün)
-- React Toastify (bildirişlər üçün)
-- React Spinners (yüklənmə indikatorları üçün)
-- CSS Modules (stil üçün)
+- React Router Dom
+- Axios
+- React Toastify
+- React Spinners
+- CSS Modules
 - RESTful backend API və token əsaslı autentifikasiya
 
 ## Quraşdırma və İşə Salma
