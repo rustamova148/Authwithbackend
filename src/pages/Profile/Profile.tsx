@@ -64,8 +64,13 @@ const Profile = () => {
 
   useEffect(() => {
     setPageNumber(currentPage);
-  }, [search, currentPage]);
-  
+  }, [currentPage]);
+
+  useEffect(() => {
+  setPageNumber(1);
+  setSearchParams({ page: '1' });
+  }, [search]);
+
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
