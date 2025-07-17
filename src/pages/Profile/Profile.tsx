@@ -108,11 +108,11 @@ const Profile = () => {
     setActionsId(null);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+  e.stopPropagation();
     try {
       await deleteUser(id);
       setAllUsers((prev) => prev.filter((user) => user.id !== id));
-      navigate("/profile");
       toast.success("Istifadeci silindi");
       setActionsId(null);
     } catch (error) {
@@ -238,7 +238,7 @@ const Profile = () => {
                         <li>
                           <button
                             className={styles.delete_btn}
-                            onClick={() => handleDelete(u.id)}
+                            onClick={(e) => handleDelete(e, u.id)}
                           >
                             <i className="fa-solid fa-trash"></i>
                             <span>Delete</span>
