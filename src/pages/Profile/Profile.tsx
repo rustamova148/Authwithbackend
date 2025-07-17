@@ -186,7 +186,7 @@ const Profile = () => {
     <div>
       <Navbar user={user} />
       <input
-        type="text"
+        type="search"
         placeholder="Axtar..."
         value={searchQuery}
         onChange={(e) => handleSearch(e.target.value)}
