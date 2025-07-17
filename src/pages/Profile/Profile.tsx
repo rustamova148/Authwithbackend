@@ -6,8 +6,7 @@ import { getUserInfo } from "../../services/authService";
 import { getUser } from "../../services/authService";
 import { deleteUser } from "../../services/authService";
 import { useEffect, useState } from "react";
-import type { UserInfo } from "../../types/userInfoTypes";
-import type { UserDetailInfo } from "../../types/userInfoTypes";
+import type { UserInfo, UserDetailInfo } from "../../types/userInfoTypes";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { editUser } from "../../services/authService";
@@ -17,13 +16,11 @@ import { refreshToken } from "../../services/authService";
 const Profile = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const pageParam = searchParams.get("page");
-  const currentPage = pageParam ? parseInt(pageParam) : 1;
-  const [pageNumber, setPageNumber] = useState(currentPage);
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const searchQuery = searchParams.get('search') || '';
   const [user, setUser] = useState<UserInfo | null>(null);
   const [allUsers, setAllUsers] = useState<UserInfo[]>([]);
   const [totalCount, setTotalCount] = useState(0);
-  const [search, setSearch] = useState("");
   const [pageSize] = useState(7);
   const [actionsId, setActionsId] = useState<string | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -49,8 +46,6 @@ const Profile = () => {
     fetchUser();
   }, []);
 
-  console.log("Login olan user:", user);
-
   useEffect(() => {
     if (selectedUser) {
       setFormData({
@@ -62,24 +57,15 @@ const Profile = () => {
       });
     }
   }, [selectedUser]);
-
-  useEffect(() => {
-    setPageNumber(currentPage);
-  }, [currentPage]);
-
-  useEffect(() => {
-    setPageNumber(1);
-    setSearchParams({ page: "1" });
-  }, [search]);
-
+  
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
         const response = await getUsers({
-          SearchPhrase: search,
+          SearchPhrase: searchQuery,
           PageSize: pageSize,
-          PageNumber: pageNumber,
+          PageNumber: currentPage,
         });
         const userspart = response.users;
         setAllUsers(userspart);
@@ -91,7 +77,7 @@ const Profile = () => {
       }
     };
     fetchUsers();
-  }, [search, pageSize, pageNumber]);
+  }, [searchQuery, pageSize, currentPage]);
 
   const handleActions = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -151,9 +137,9 @@ const Profile = () => {
     try {
       await editUser(formData);
       const response = await getUsers({
-        SearchPhrase: search,
+        SearchPhrase: searchQuery,
         PageSize: pageSize,
-        PageNumber: pageNumber,
+        PageNumber: currentPage,
       });
       const userspart = response.users;
       setAllUsers(userspart);
@@ -172,7 +158,7 @@ const Profile = () => {
   const pageGroupSize = 4;
 
   // Hansi blokdayiq (0, 1, 2, ...)
-  const currentGroup = Math.floor((pageNumber - 1) / pageGroupSize);
+  const currentGroup = Math.floor((currentPage - 1) / pageGroupSize);
 
   // Bu blokda baslayan ve biten page nomreleri
   const startPage = currentGroup * pageGroupSize + 1;
@@ -184,11 +170,16 @@ const Profile = () => {
     pageNumbers.push(i);
   }
 
-  const handlePageChange = (updater: number | ((prev: number) => number)) => {
-    const nextPage =
-      typeof updater === "function" ? updater(pageNumber) : updater;
-    setPageNumber(nextPage);
-    setSearchParams({ page: nextPage.toString() }); // URL-də ?page=page dəyərini qoyur
+  const handlePageChange = (newPage: number) => {
+    const newParams = new URLSearchParams();
+    newParams.set('page', newPage.toString());
+    setSearchParams(newParams);
+  };
+
+  const handleSearch = (searchValue: string) => {
+    const newParams = new URLSearchParams();
+    if (searchValue) newParams.set('search', searchValue);
+    setSearchParams(newParams);
   };
 
   return (
@@ -197,8 +188,8 @@ const Profile = () => {
       <input
         type="text"
         placeholder="Axtar..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={searchQuery}
+        onChange={(e) => handleSearch(e.target.value)}
         className={styles.search}
       />
       <table className={styles.table}>
@@ -305,8 +296,8 @@ const Profile = () => {
       <div className={styles.pagination_control}>
         <div>
           <button
-            onClick={() => handlePageChange((prev) => Math.max(prev - 1, 1))}
-            disabled={pageNumber === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
             className={styles.next_prev_btn}
           >
             <i className="fa-solid fa-angles-left"></i>
@@ -316,19 +307,15 @@ const Profile = () => {
               key={page}
               onClick={() => handlePageChange(page)}
               className={`${
-                page === pageNumber ? styles.activebtn : styles.pag_btn
+                page === currentPage ? styles.activebtn : styles.pag_btn
               }`}
             >
               {page}
             </button>
           ))}
           <button
-            onClick={() =>
-              handlePageChange((prev) =>
-                prev < Math.ceil(totalCount / pageSize) ? prev + 1 : prev
-              )
-            }
-            disabled={pageNumber >= Math.ceil(totalCount / pageSize)}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage >= Math.ceil(totalCount / pageSize)}
             className={styles.next_prev_btn}
           >
             <i className="fa-solid fa-angles-right"></i>
